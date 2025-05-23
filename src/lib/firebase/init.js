@@ -1,0 +1,21 @@
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDMPsGGmEVPg9jKbZhNfBGYHkAHfBJbyrQ",
+  authDomain: "workout-together-3a984.firebaseapp.com",
+  projectId: "workout-together-3a984",
+  storageBucket: "workout-together-3a984.firebasestorage.app",
+  messagingSenderId: "896395804575",
+  appId: "1:896395804575:web:1e638ed29833adaf9387aa",
+  measurementId: "G-GFCPLH5XG6"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+const db = getFirestore(app);
+
+export { app, analytics, db };
