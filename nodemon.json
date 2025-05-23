@@ -1,0 +1,6 @@
+{
+    "ignore": [
+        "src/app/*"
+    ],
+    "exec": "node src/server/index.js"
+}
