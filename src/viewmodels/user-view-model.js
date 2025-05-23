@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../lib/firebase/init";
+import { db } from "../lib/firebase/firestore";
 import User from "../models/User";
 
 export function useUsers() {
