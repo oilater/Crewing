@@ -34,8 +34,11 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/api/database.js"
-, "src/app/page.js", "src/server/index.js", "src/hooks/useSocket.js"  ],
+    "src/app/api/database.js",
+    "src/app/page.js",
+    "src/server/index.js",
+    "src/hooks/useSocket.js"
+, "src/lib/firestore/user.js", "src/models/User.ts"  ],
   "exclude": [
     "node_modules"
   ]

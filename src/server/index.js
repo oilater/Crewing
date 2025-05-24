@@ -15,8 +15,8 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   // 클라이언트가 연결되면
-
-
+  io.emit("updateUserCount");
+  
 });
 
 server.listen(port, () => {
