@@ -1,0 +1,45 @@
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.titleSection {
+    margin-top: 1rem;
+    width: 95%;
+    max-height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .welcomeLabel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 6rem;
+        height: 100%;
+
+        span {
+            color: dodgerblue;
+        }
+    }
+
+    .myProfileImg {
+        border-radius: 100rem;
+    }
+}
+
+.title {
+    color: white;
+    font-size: 24px;
+}
+
+.logOutBtn {
+    width: 5rem;
+    height: 100%;
+    background: none;
+    color: #121212;
+    border: none;
+    border-radius: 2px;
+    font-size: 1rem;
+    cursor: pointer;
+}

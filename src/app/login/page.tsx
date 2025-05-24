@@ -10,7 +10,7 @@ const LoginPage = () => {
     return (
         <div className={css.loginPage}>
             <div className={css.appTitle}>
-                <p>운동 할 땐 <span>혼클</span></p>
+                <p>운동 친구 찾을 땐 <span>혼클</span></p>
             </div>
             <Image
                 className={css.logoImage}

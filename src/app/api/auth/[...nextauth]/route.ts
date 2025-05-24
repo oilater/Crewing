@@ -11,12 +11,6 @@ const authOptions: NextAuthOptions = {
         kakaoProvider({
             clientId: process.env.KAKAO_CLIENT_ID as string,
             clientSecret: process.env.KAKAO_CLIENT_SECRET as string,
-            authorization: {
-                url: "https://kauth.kakao.com/oauth/authorize",
-                params: {
-                    prompt: "login",
-                },
-            },
         }),
     ],
     secret: process.env.NEXTAUTH_SECRET,
