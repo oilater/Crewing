@@ -5,7 +5,7 @@ import saveUser from "../../../../lib/firestore/user";
 
 const authOptions: NextAuthOptions = {
     session: {
-        strategy: "jwt", // middleware에서 토큰을 가져오기 위함
+        strategy: "jwt", // middleware에서 토큰을 가져와서 현재 로그인한 상태인지 확인하기 위함
     },
     providers: [
         kakaoProvider({

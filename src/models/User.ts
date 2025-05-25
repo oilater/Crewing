@@ -1,6 +1,7 @@
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 interface UserType {
+  socketId?: string;
   email?: string;
   name?: string;
   imageUrl?: string;
@@ -9,6 +10,7 @@ interface UserType {
 }
 
 class User {
+  socketId?: string;
   email?: string;
   name?: string;
   imageUrl?: string;
@@ -16,10 +18,11 @@ class User {
   createdAt?: string;
 
   constructor(data: UserType = {}) {
+    this.socketId = data.socketId;
     this.email = data.email;
     this.name = data.name;
     this.imageUrl = data.imageUrl;
-    this.visitCount = data.visitCount;
+    this.visitCount = 1;
     this.createdAt = new Date().toISOString();
   }
 
@@ -30,11 +33,12 @@ class User {
 
   toJSON() {
     return {
+      socketId: this.socketId,
       name: this.name,
       email: this.email,
       imageUrl: this.imageUrl,
-      createdAt: this.createdAt,
       visitCount: this.visitCount,
+      createdAt: this.createdAt,
     };
   }
 }

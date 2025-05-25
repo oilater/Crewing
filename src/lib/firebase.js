@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
+// Firebase 초기화
 const firebaseConfig = {
   apiKey: "AIzaSyDMPsGGmEVPg9jKbZhNfBGYHkAHfBJbyrQ",
   authDomain: "workout-together-3a984.firebaseapp.com",
@@ -11,7 +12,6 @@ const firebaseConfig = {
   measurementId: "G-GFCPLH5XG6"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
