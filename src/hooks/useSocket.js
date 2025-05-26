@@ -65,6 +65,16 @@ export function useSocket() {
             }, 2000);
         });
 
+        socket.on("match", (data) => {
+            console.log(data);
+            
+            if (!data) return;
+            console.log(data);
+            
+            console.log("매치 완료");
+            
+        });
+
         // 연결이 끊어지면
         socket.on("disconnect", () => {
             setConnected(false);

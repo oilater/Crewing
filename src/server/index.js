@@ -16,8 +16,8 @@ const io = new Server(server, {
 
 const userMap = new Map();
 
-function getRoomId(email1, email2) {
-    return [email1, email2].join('_');
+function getRoomId(senderEmail, recieverEmail) {
+    return [senderEmail, recieverEmail].join('_');
 }
 
 // 새로운 유저가 연결되면
@@ -27,7 +27,7 @@ io.on("connection", (socket) => {
     // 유저의 소켓 id
     const socketId = socket.id;
     if (!email || !name || !imageUrl) return;
-    
+
     if (!userMap.has(email)) {
         userMap.set(email, { socketId, email, name, imageUrl });
     }
@@ -40,17 +40,7 @@ io.on("connection", (socket) => {
         const recieverSocketId = userMap.get(reciever.email)?.socketId;
         
         if (!recieverSocketId) return;
-        io.to(recieverSocketId).emit("newRequest", sender);        
-
-        // const roomId = getRoomId(fromUser.email, toUserEmail);
-        // socket.join(roomId);
-
-        // 상대에게 "새로운 메시지" 이벤트 전달 - 요청 보낸 유저 정보를 같이 보냄
-            // 서버 측에서 상대방 소켓을 직접 방에 입장시킴
-            // const targetSocket = io.sockets.sockets.get(targetSocketId);
-            // targetSocket?.join(roomId);
-        // 본인에게도 방 정보 전달
-        // socket.emit("joinRoom", { roomId, toUserEmail,});
+        io.to(recieverSocketId).emit("newRequest", sender);
     });
 
     socket.on("rejectChat", ({ sender, reciever }) => {
@@ -62,7 +52,39 @@ io.on("connection", (socket) => {
         });
     });
 
-    // 유저 연결이 종료되면
+    socket.on("comfirmChat", ({ sender, reciever }) => {
+        const senderSocketId = userMap.get(sender.email)?.socketId;
+        const recieverSocketId = userMap.get(reciever.email)?.socketId;
+        if (!senderSocketId || !recieverSocketId) return;
+        
+        const roomId = getRoomId(sender.email, reciever.email);
+
+        io.to(senderSocketId).emit("match", {
+            message: `${reciever.name}과 매칭되었어요🎉 \n 잠시 후 채팅방으로 이동합니다`,
+            sender: sender,
+            reciever: reciever,
+            roomId: roomId
+        });
+
+        io.to(recieverSocketId).emit("match", {
+            message: `${sender.name}과 매칭되었어요🎉 \n 잠시 후 채팅방으로 이동합니다`,
+            sender: sender,
+            reciever: reciever,
+            roomId: roomId
+        });
+        
+        setTimeout(() => {
+            socket.join(roomId);
+            const recieverSocket = io.sockets.sockets.get(recieverSocketId);
+            const senderSocket = io.sockets.sockets.get(senderSocketId);
+            if (!recieverSocket || !senderSocket) return;
+            recieverSocket.join(roomId);
+            senderSocket.join(roomId);
+            io.to(roomId).emit("enterRoom", { message: '채팅방에 입장했어요. 매너 채팅하세요 !' });
+        }, 3000);
+    });
+
+    // 소켓 연결이 종료되면
     socket.on("disconnect", () => {
         userMap.delete(email);
         const updatedUserList = Array.from(userMap.entries());
