@@ -38,7 +38,7 @@
     "src/app/page.jsx",
     "src/server/index.js",
     "src/hooks/useSocket.js"
-, "src/lib/firestore/user.js", "src/models/User.ts", "src/components/NavBar/NavBar.jsx", "src/components/UserCard/UserCard.jsx"  ],
+, "src/lib/firestore/user.js", "src/models/User.ts", "src/components/NavBar/NavBar.jsx", "src/components/UserCard/UserCard.jsx", "src/components/RequestModal/RequestModal.jsx"  ],
   "exclude": [
     "node_modules"
   ]

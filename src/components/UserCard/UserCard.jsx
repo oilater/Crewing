@@ -2,14 +2,14 @@ import css from './UserCard.module.scss';
 import Image from "next/image";
 import { useSocket } from '@/hooks/useSocket';
 
-const onClickCard = (e, email) => {
-    const { createPrivateRoom } = useSocket();
-    e.preventDefault();
-    createPrivateRoom(email);
-}
-
 const UserCard = ({ user }) => {
+    const { requestChat } = useSocket();
     if (!user) return null;
+
+    const onClickCard = (e, email) => {
+        e.preventDefault();
+        requestChat(email);
+    }
 
     return (
         <div className={css.cardContainer}>

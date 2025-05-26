@@ -16,6 +16,10 @@ const io = new Server(server, {
 
 const userMap = new Map();
 
+function getRoomId(email1, email2) {
+    return [email1, email2].join('_');
+}
+
 // 새로운 유저가 연결되면
 io.on("connection", (socket) => {
     // 유저의 데이터
@@ -31,6 +35,24 @@ io.on("connection", (socket) => {
     const userList = Array.from(userMap.entries()); 
     // "newUser" 이벤트로 모든 클라이언트에게 보내줌
     io.emit("newUser", userList);
+
+    socket.on("requestChat", ({ toUserEmail, fromUser }) => {
+        const targetSocketId = userMap.get(toUserEmail)?.socketId;
+
+        if (targetSocketId) {
+            io.to(targetSocketId).emit("newRequest", fromUser);        
+        }
+
+        // const roomId = getRoomId(fromUser.email, toUserEmail);
+        // socket.join(roomId);
+
+        // 상대에게 "새로운 메시지" 이벤트 전달 - 요청 보낸 유저 정보를 같이 보냄
+            // 서버 측에서 상대방 소켓을 직접 방에 입장시킴
+            // const targetSocket = io.sockets.sockets.get(targetSocketId);
+            // targetSocket?.join(roomId);
+        // 본인에게도 방 정보 전달
+        // socket.emit("joinRoom", { roomId, toUserEmail,});
+    });
 
     // 유저 연결이 종료되면
     socket.on("disconnect", () => {

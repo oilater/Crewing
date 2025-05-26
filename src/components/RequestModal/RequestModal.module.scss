@@ -1,0 +1,94 @@
+/* 페이드 인 효과 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: white;
+    padding-top: 2rem;
+    border-radius: 1.3rem;
+    width: 21rem;
+    height: 23rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    overflow-y: auto;
+    animation: fadeIn 0.3s forwards ease-in-out;
+
+    .title {
+        margin-bottom: 2rem;
+
+        span {
+            color: dodgerblue;
+        }
+    }
+
+    .imageWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 150px;
+        border-radius: 100px;
+
+        .userCardImage {
+            width: 150px;
+            height: 150px;
+            border-radius: 100px;
+        }
+    }
+
+    .buttonSection {
+        margin-top: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: inherit;
+        font-size: 1.2rem;
+        border-top: 0.1px solid #E7E7E7;
+
+        .buttonWrapper {
+            display: flex;
+            justify-content: center;
+            width: inherit;
+            height: 100%;
+        }
+
+        .buttonWrapper:first-child {
+            border-right: 0.1px solid #E7E7E7;
+        }
+
+
+
+        .cancelButton {
+            color: red;
+            cursor: pointer;
+        }
+
+        .confirmButton {
+            color: dodgerblue;
+            cursor: pointer;
+        }
+
+        .cancelButton:hover {
+            transition: all 0.3s ease;
+            transform: scale(1.05);
+        }
+
+        .confirmButton:hover {
+            transition: all 0.3s ease;
+            transform: scale(1.05);
+        }
+    }
+}
