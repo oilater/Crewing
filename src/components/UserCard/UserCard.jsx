@@ -3,17 +3,17 @@ import Image from "next/image";
 import { useSocket } from '@/hooks/useSocket';
 
 const UserCard = ({ user }) => {
-    const { requestChat } = useSocket();
+    const { onRequestChat } = useSocket();
     if (!user) return null;
 
-    const onClickCard = (e, email) => {
+    const onClickCard = (e, targetUser) => {
         e.preventDefault();
-        requestChat(email);
+        onRequestChat(targetUser);
     }
 
     return (
         <div className={css.cardContainer}>
-            <button className={css.cardWrapperButton} onClick={(e) => onClickCard(e, user.email)}>
+            <button className={css.cardWrapperButton} onClick={(e) => onClickCard(e, user)}>
                 <div className={css.imageWrapper}>
                     <Image
                         width={150}

@@ -32,16 +32,15 @@ io.on("connection", (socket) => {
         userMap.set(email, { socketId, email, name, imageUrl });
     }
 
-    const userList = Array.from(userMap.entries()); 
+    const userList = Array.from(userMap.entries());
     // "newUser" 이벤트로 모든 클라이언트에게 보내줌
     io.emit("newUser", userList);
 
-    socket.on("requestChat", ({ toUserEmail, fromUser }) => {
-        const targetSocketId = userMap.get(toUserEmail)?.socketId;
-
-        if (targetSocketId) {
-            io.to(targetSocketId).emit("newRequest", fromUser);        
-        }
+    socket.on("requestChat", ({ reciever, sender }) => {
+        const recieverSocketId = userMap.get(reciever.email)?.socketId;
+        
+        if (!recieverSocketId) return;
+        io.to(recieverSocketId).emit("newRequest", sender);        
 
         // const roomId = getRoomId(fromUser.email, toUserEmail);
         // socket.join(roomId);
@@ -52,6 +51,15 @@ io.on("connection", (socket) => {
             // targetSocket?.join(roomId);
         // 본인에게도 방 정보 전달
         // socket.emit("joinRoom", { roomId, toUserEmail,});
+    });
+
+    socket.on("rejectChat", ({ sender, reciever }) => {
+        const sentUser = userMap.get(sender.email);
+        if (!sentUser) return;
+        
+        io.to(sentUser.socketId).emit("rejectNotification", {
+            message: `${reciever.name}님이 채팅 요청을 거절했어요 😢`,
+        });
     });
 
     // 유저 연결이 종료되면

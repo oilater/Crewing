@@ -13,7 +13,6 @@
 
     .homeBoard {
         background: #ffffff;
-
         display: flex;
         height: auto;
         border-radius: 24px;
@@ -30,6 +29,11 @@
             justify-content: center;
             align-items: center;
         }
+
+        .noUser {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
     }
 
 }
@@ -45,4 +49,13 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
+}
+
+.toastSection {
+    position: fixed;
+    bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100px;
 }

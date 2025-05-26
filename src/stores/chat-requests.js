@@ -2,6 +2,8 @@ import { create } from 'zustand';
 
 const useChatRequestStore = create((set, get) => ({
     chatRequests: new Set(),
+    rejectMessage: "",
+    requestMessage: "",
 
     setChatRequests: (email) => {
         if (!email) return;
@@ -15,7 +17,15 @@ const useChatRequestStore = create((set, get) => ({
         const newSet = new Set(get().chatRequests);
         newSet.delete(email);
         set({chatRequests: newSet});
-    }
+    },
+
+    setRequestMessage: (message) => {
+        set({requestMessage: message});
+    },
+
+    setRejectMessage: (message) => {
+        set({rejectMessage: message});
+    },
 }));
 
 export default useChatRequestStore;
