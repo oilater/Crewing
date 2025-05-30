@@ -66,12 +66,8 @@ export function useSocket() {
         });
 
         socket.on("match", (data) => {
-            console.log(data);
-            
             if (!data) return;
             console.log(data);
-            
-            console.log("매치 완료");
             
         });
 
